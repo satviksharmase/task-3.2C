@@ -1,0 +1,28 @@
+int led=D7;
+int lightSensor=A5;
+int value;
+
+void setup() 
+{
+    pinMode(led,OUTPUT);
+    pinMode(lightSensor,INPUT);
+}
+
+
+void loop() 
+{
+    value=analogRead(lightSensor);
+    digitalWrite(led,HIGH);
+    
+    if(value>1)
+    {
+        Particle.publish("light","high sun",PRIVATE);
+        digitalWrite(led,HIGH);
+    }
+    if(value<1)
+    {
+        Particle.publish("light","low sun",PRIVATE);
+        digitalWrite(led,LOW);
+    }
+    delay(100000);
+}
